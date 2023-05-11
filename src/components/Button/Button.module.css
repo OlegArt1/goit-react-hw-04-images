@@ -1,0 +1,72 @@
+.button__block
+{
+    margin: 50px auto;
+    display: flex;
+    justify-content: center;
+}
+.button
+{
+    padding: 8px 16px;
+    min-width: 180px;
+    display: inline-block;
+    cursor: pointer;
+    font-family: inherit;
+    font-style: normal;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 2px;
+    border: 0;
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+    background-color: #3f51b5;
+    color: #fff;    
+/*
+    width: 120px;
+    height: 38px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 2px solid rgb(110, 110, 206);
+    background: radial-gradient(circle at center, rgb(224, 204, 140) 0, rgb(177, 216, 165), rgb(101, 207, 189), rgb(206, 110, 193) 100%);
+*/
+}
+    .button:hover
+    {
+        border: rgb(206, 110, 193);
+        background-color: #303f9f;
+        /* background: radial-gradient(circle at center, rgb(224, 140, 140) 0, rgb(216, 216, 165), rgb(101, 207, 101), rgb(110, 110, 206) 100%); */
+    }
+.button__label
+{
+    font-weight: 600;
+    font-size: 16px;
+    color: white;
+}
+@media screen and (max-width: 720px)
+{
+    .button
+    {
+        padding: 6px 10px;
+        width: 60px;
+        height: auto;
+    }
+    .button__label
+    {
+        font-size: 14px;
+    }
+}
+@media screen and (max-width: 520px)
+{
+    .button
+    {
+        padding: 4px 8px;
+        width: 40px;
+        height: auto;
+    }
+    .button__label
+    {
+        font-size: 12px;
+    }
+}
