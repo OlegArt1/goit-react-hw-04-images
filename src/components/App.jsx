@@ -22,13 +22,32 @@ export const App = () =>
     const [isLoading, setIsLoading] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [error, setError] = useState(null);
-/*
-    const [modal, setModal] = useState({
-        showModal: false, largeImageURL: '',
-    });
-*/
+
     useEffect(() =>
     {
+        const fetchDownloadImages = async searchQuery =>
+        {
+            setIsLoading(true);
+        
+            setError(null);
+      
+            try
+            {
+                const response = await fetchApi(API_URL, API_KEY, searchQuery, perPage);
+            
+                setImages(prevState => [...prevState, ...response.hits]);
+            
+                setLastPage(Math.ceil(response.totalHits / number));
+            }
+            catch (error)
+            {
+                setError(error);
+            }
+            finally
+            {
+                setIsLoading(false);
+            }
+        }
         window.addEventListener('keydown', (e)=>
         {
             if (e.code === 'Escape')
@@ -55,12 +74,7 @@ export const App = () =>
             });
         };
     }, [perPage, request]);
-/*
-    const onClickClear = () =>
-    {
-        setInputValue('');
-    };
-*/
+
     const handleChange = event =>
     {
         setInputValue(event.target.value);
@@ -90,41 +104,12 @@ export const App = () =>
         setSrcUrl(data.target.src);
         
         setAlt(data.target.alt);
-
-     // setModal(prevState => ({ ...prevState, image }));
-
-     // console.log("\nUrl - " + data.target.src + ";" + " Alt - ", data.target.alt);
     }
     const onCloseModal = () =>
     {
         setShowModal(false);
-
-     // setModal(prevState => ({ ...prevState, showModal: !prevState.showModal })); // змінюємо значення showModal на протилежне
-    }    
-    const fetchDownloadImages = async searchQuery =>
-    {
-        setIsLoading(true);
         
-        setError(null);
-      
-        try
-        {
-            const response = await fetchApi(API_URL, API_KEY, searchQuery, perPage);
-            
-            setImages(prevState => [...prevState, ...response.hits]);
-            
-            setLastPage(Math.ceil(response.totalHits / number));
-            
-         // response.totalHits === 0 && setNoResults(true);
-        }
-        catch (error)
-        {
-            setError(error);
-        }
-        finally
-        {
-            setIsLoading(false);
-        }
+        setLastPage(lastPage);
     }
     return (
         <div className="App">
@@ -140,13 +125,6 @@ export const App = () =>
                 <h2 style={{ paddingTop: 70, paddingBottom: 70, height: (window.innerHeight / 6), textAlign: 'center', color: 'lightgray' }}>Pictures not found!</h2>}
             </div>
             {isLoading && <Loader />}
-            {/*<ButtonElement label="Load more" handleLoadMore={handleLoadMore} />*/}
-            {/*{perPage < lastPage && !isLoading ?
-                (<ButtonElement onClick={handleLoadMore}/>)
-                :
-                (<div style={{ height: 40 }}></div>
-            )}*/}
-            {/*{modal.showModal && <Modal onClose={toggleModal} largeImageURL={modal.largeImageURL} />}*/}
             {showModal === true && <Modal onClick={onCloseModal} src={srcUrl} alt={alt}/>}
         </div>
     );
